@@ -1,5 +1,3 @@
-// This is a guard condition so that contents of this file are not included
-// more than once.  
 #include "pragma.h"
 #include "define.h"
 
@@ -14,33 +12,64 @@
 void lcd_clk(void); /*генерация импульса на вход EN*/
 void lcd_command(unsigned char outbyte); /*отправить команду (4-битный режим работы) */
 void lcd_putc(char outbyte); /* отправить данные (4-битная операция) */
-void lcd_puts(unsigned char line,const char *p); // *вывод строки на экран*
-void inttolcd(unsigned char posi, long value); //вывод на экран значений пере-менных
-void lcd_init(); // инициализация LCD-дисплея
-void Adc_init();    // инициализация модуля АЦП
-int read_Adc(int channel);  // чтение значений с указанного канала АЦП
-//void make_noise();   // звуковой сигнал с частотой 1/freq
 
 /*
- * @brief   Initialization of H-interrupt 
+ * @brief   Show string on LCD 
+ */
+void lcd_puts(uint8_t line,const uint8_t *p); // *вывод строки на экран*
+
+/*
+ * @brief   Show integer digits on LCD 
+ */
+void inttolcd(uint8_t posi, int32_t value); //вывод на экран значений пере-менных
+
+/*
+ * @brief   Initialization of LCD-unit 
+ */
+void lcd_init(); // инициализация LCD-дисплея
+
+/*
+ * @brief   Initialization of ADC-unit 
+ */
+void Adc_init();    // инициализация модуля АЦП
+
+/*
+ * @brief   Read data from ADC 
+ */
+int16_t read_Adc(int16_t channel);  
+
+/*
+ * @brief   Initialization of High-level-interrupt 
  *          from external source (button RB0/INT0)
  */
 void high_interrupt_init( void );
 
+/*
+ * @brief   Initialization of Low-level-interrupt 
+ *          from internal source (Timer 0)
+ */
 void low_interrupt_init( );
 
-void motor_init();   // инициализация моторов
-void motor_a_change_Speed (signed char speed);  // управление скоростью вращенения 
-void motor_b_change_Speed (signed char speed);  // управление скоростью вращенения 
-//void timer_init();
-//void interrupt low_priority  LIisr (void);
-//void interrupt HIisr (void);
-//
-void LED_on(int turn_on);
-int read_sensor_1();
-int read_sensor_2();
-int read_sensor_3();
+/*
+ * @brief   Initialization of motor-unit 
+ */
+void motor_init();   
 
+/*
+ * @brief   Control speed of Motor A
+ *          Speed [-124; 124]
+ *          forward : 0 - 124
+ *          backward: -124 - 0   
+ */
+void motor_a_change_Speed (int8_t speed); 
+
+/*
+ * @brief   Control speed of Motor B
+ *          Speed [-124; 124]
+ *          forward : 0 - 124
+ *          backward: -124 - 0   
+ */
+void motor_b_change_Speed (int8_t speed);  // управление скоростью вращенения 
 
 /*
  * @brief   Initialization of all lld-units in robot
@@ -150,3 +179,18 @@ void testTemperatureSensorRoutine( void );
  *          Include addition delay ( 100 ms ) !!!!
  */
 void testPotentiometrRoutine( void );
+
+/*
+ * @brief   Check motors
+ *          Press the button RB0:
+ *              0 - stop
+ *              1 - move forward; 
+ *              2 - move backward;
+ *              3 - stop. 
+ *          On lcd you will see:
+ *              1st line : Button pressed
+ *              2nd line : NUMBER OF PRESS  
+ * @note    VERY IMPORTANT!!! 
+ *          Call OUTSIDE the while( 1 ) loop  !!!!    
+ */
+void testMotors( void );

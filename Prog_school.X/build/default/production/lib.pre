@@ -4050,70 +4050,78 @@ extern double fmod(double, double);
 extern double trunc(double);
 extern double round(double);
 
-# 14 "lib.h"
+# 12 "lib.h"
 void lcd_clk(void);
 void lcd_command(unsigned char outbyte);
 void lcd_putc(char outbyte);
-void lcd_puts(unsigned char line,const char *p);
-void inttolcd(unsigned char posi, long value);
-void lcd_init();
-void Adc_init();
-int read_Adc(int channel);
 
-# 28
+# 19
+void lcd_puts(uint8_t line,const uint8_t *p);
+
+# 24
+void inttolcd(uint8_t posi, int32_t value);
+
+# 29
+void lcd_init();
+
+# 34
+void Adc_init();
+
+# 39
+int16_t read_Adc(int16_t channel);
+
+# 45
 void high_interrupt_init( void );
 
+# 51
 void low_interrupt_init( );
 
+# 56
 void motor_init();
-void motor_a_change_Speed (signed char speed);
-void motor_b_change_Speed (signed char speed);
 
+# 64
+void motor_a_change_Speed (int8_t speed);
 
+# 72
+void motor_b_change_Speed (int8_t speed);
 
-
-void LED_on(int turn_on);
-int read_sensor_1();
-int read_sensor_2();
-int read_sensor_3();
-
-# 48
+# 77
 void init_all_units( void );
 
-# 61
+# 90
 void testLEDRoutine( void );
 
-# 67
+# 96
 void testButtonRoutine( void );
 
-# 75
+# 104
 void testNoiseRoutine( void );
 
-# 86
+# 115
 void testAllSensorsRoutine( void );
 
-# 97
+# 126
 void testRefSensors( void );
 
-# 108
+# 137
 void testDistanceSensorRoutine( void );
 
-# 119
+# 148
 void testLightSensorRoutine( void );
 
-# 130
+# 159
 void testNoiseSensorRoutine( void );
 
-# 141
+# 170
 void testTemperatureSensorRoutine( void );
 
-# 152
+# 181
 void testPotentiometrRoutine( void );
 
-# 3 "lib.c"
-int make_noise = 0;
-int sensor_1 = 0, sensor_2 = 0, sensor_3 = 0;
+# 196
+void testMotors( void );
 
+# 3 "lib.c"
 void lcd_clk(void)
 {
 PORTDbits.RD3 = 1;
@@ -4142,9 +4150,8 @@ lcd_clk();
 
 }
 
-void lcd_puts(unsigned char line,const char *p)
+void lcd_puts(uint8_t line,const uint8_t *p)
 {
-
 lcd_command(2);
 lcd_command(line);
 while(*p)
@@ -4152,10 +4159,9 @@ while(*p)
 lcd_putc(*p);
 p++;
 }
-
 }
 
-void inttolcd(unsigned char posi, long value)
+void inttolcd(uint8_t posi, int32_t value)
 {
 char buff[16];
 itoa(buff,value,10);
@@ -4203,7 +4209,7 @@ ADCON2bits.ADFM=0;
 ADCON0bits.ADON=1;
 }
 
-int read_Adc(int channel)
+int16_t read_Adc(int16_t channel)
 {
 ADCON0bits.CHS=channel;
 ADCON0bits.GO_DONE=1;
@@ -4211,7 +4217,6 @@ while(ADCON0bits.GO_DONE==1);
 return (ADRESH<<2)+(ADRESL>>6);
 }
 
-# 112
 void high_interrupt_init( void )
 {
 RCONbits.IPEN=1;
@@ -4227,8 +4232,6 @@ T0CONbits.T08BIT=0;
 T0CONbits.PSA=0;
 T0CONbits.T0PS=0b111;
 T0CONbits.T0CS=0;
-TMR0H=217;
-TMR0L=217;
 T0CONbits.TMR0ON=1;
 RCONbits.IPEN=1;
 INTCON2bits.TMR0IP=0;
@@ -4256,7 +4259,7 @@ T2CONbits.T2CKPS=0b00;
 T2CONbits.TMR2ON=1;
 }
 
-void motor_a_change_Speed (signed char speed)
+void motor_a_change_Speed (int8_t speed)
 {
 if (speed>0)
 {
@@ -4278,7 +4281,7 @@ PORTDbits.RD1=0;
 }
 }
 
-void motor_b_change_Speed (signed char speed)
+void motor_b_change_Speed (int8_t speed)
 {
 if (speed>0)
 {
@@ -4300,79 +4303,19 @@ PORTBbits.RB2=0;
 }
 }
 
-
-void timer_init()
-{
-
-TRISCbits.RC0 = 0;
-T0CONbits.T08BIT=1;
-T0CONbits.PSA=1;
-T0CONbits.T0PS=0b111;
-T0CONbits.T0CS=0;
-TMR0H=0;
-TMR0L=200;
-T0CONbits.TMR0ON=1;
-RCONbits.IPEN=1;
-INTCON2bits.TMR0IP=0;
-INTCONbits.TMR0IF=0;
-INTCONbits.GIEH=1;
-INTCONbits.GIEL=1;
-INTCONbits.TMR0IE=1;
-
-}
-
-# 231
-void A4_is_on()
-{
-TRISAbits.TRISA4 = 1;
-}
-
-void B0_is_on()
-{
-TRISBbits.TRISB0 = 1;
-}
-
-# 277
-void LED_on(int turn_on)
-{
-TRISBbits.RB3 = 0;
-if(turn_on == 1)
-{
-LATBbits.LATB3 = 1;
-}
-else
-{
-LATBbits.LATB3 = 0;
-}
-}
-
-int read_sensor_1()
-{
-sensor_1 = read_Adc(0);
-return sensor_1;
-}
-
-int read_sensor_2()
-{
-sensor_2 = read_Adc(1);
-return sensor_2;
-}
-
-int read_sensor_3()
-{
-sensor_3 = read_Adc(2);
-return sensor_3;
-}
-
+int8_t isInitialized = 0;
 
 void init_all_units( void )
 {
+if( isInitialized )
+return;
+
 lcd_init();
 Adc_init();
 motor_init();
-timer_init();
-}
 
+isInitialized = 1;
+}
 
 void testLEDRoutine( void )
 {
@@ -4605,5 +4548,48 @@ inttolcd(0xC0, sensor_val);
 
 _delay((unsigned long)((100)*(10000000/4000.0)));
 lcd_command(1);
+}
+}
+
+void testMotors( void )
+{
+TRISBbits.RB0 = 1;
+uint8_t but_count = 0;
+
+while( 1 )
+{
+if( !PORTBbits.RB0 )
+{
+_delay((unsigned long)((70)*(10000000/4000.0)));
+if( !PORTBbits.RB0 )
+{
+but_count += 1;
+}
+}
+
+switch( but_count )
+{
+case 1:
+motor_a_change_Speed( 120 );
+motor_b_change_Speed( 120 );
+break;
+
+case 2:
+motor_a_change_Speed( -120 );
+motor_b_change_Speed( -120 );
+break;
+
+case 3:
+motor_a_change_Speed( 0 );
+motor_b_change_Speed( 0 );
+break;
+
+default: ;
+}
+but_count = (but_count >= 4) ? 0 : but_count;
+
+lcd_puts( 0x80, "Button pressed");
+inttolcd(0xC0, but_count);
+
 }
 }

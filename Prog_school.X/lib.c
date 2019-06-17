@@ -1,8 +1,5 @@
 #include "lib.h"
 
-int make_noise = 0;
-int sensor_1 = 0, sensor_2 = 0, sensor_3 = 0;
-
 void lcd_clk(void) /*генерация импульса на вход EN*/
 {
   LCD_E = 1;
@@ -31,9 +28,8 @@ void lcd_putc(char outbyte) /* отправить данные (4-битная операция) */
   
 }
 
-void lcd_puts(unsigned char line,const char *p) // *вывод строки на экран*
+void lcd_puts(uint8_t line,const uint8_t *p) 
 {
-//    lcd_clear();
 	lcd_origin();         // переход к нулевому адресу LCD
 	lcd_command(line);			// установить адрес LCD 00H
 	while(*p)                  // проверить, равен ли указатель 0
@@ -41,10 +37,9 @@ void lcd_puts(unsigned char line,const char *p) // *вывод строки на экран*
 	 lcd_putc(*p);             // отправить данные на LCD
 	 p++;                      // увеличить адрес на 1
 	}
-//    __delay_ms(5);
 }
 
-void inttolcd(unsigned char posi, long value) //вывод на экран значений пере-менных
+void inttolcd(uint8_t posi, int32_t value) 
 {
 	char buff[16];
 	itoa(buff,value,10);
@@ -92,22 +87,13 @@ void Adc_init()
     ADCON0bits.ADON=1;   // модуль АЦП включен
 }
 
-int read_Adc(int channel)
+int16_t read_Adc(int16_t channel)
 {
     ADCON0bits.CHS=channel; // выбор аналогового канала
     ADCON0bits.GO_DONE=1; // запуск преобразования
     while(ADCON0bits.GO_DONE==1);      
     return (ADRESH<<2)+(ADRESL>>6);//запись результата преобразования
 }
-
-//void make_noise()
-//{
-//    TRISC0 = 0;
-//    LATCbits.LATC0 = 1;
-//    __delay_ms(0.02);
-//    LATCbits.LATC0 = 0;
-//    __delay_ms(0.02);
-//}
 
 void high_interrupt_init( void )
 {
@@ -124,8 +110,6 @@ void low_interrupt_init( )
     T0CONbits.PSA=0;// pre-divider is used 
     T0CONbits.T0PS=0b111;//pre-divider = 256 
     T0CONbits.T0CS=0;// selection of the internal source clock 
-    TMR0H=217;// the write high byte of initial value 
-    TMR0L=217;// the write low byte of the initial value 
     T0CONbits.TMR0ON=1; 
     RCONbits.IPEN=1; // two-level interrupt is enabled
     INTCON2bits.TMR0IP=0;// assign an interrupt a low priority 
@@ -153,7 +137,7 @@ void motor_init()
     T2CONbits.TMR2ON=1;// включение модуля Timer2
 }
 
-void motor_a_change_Speed (signed char speed)
+void motor_a_change_Speed (int8_t speed)
 {
     if (speed>0) // движение вперёд
     {
@@ -175,21 +159,21 @@ void motor_a_change_Speed (signed char speed)
     }
 }
 
-void motor_b_change_Speed (signed char speed)
+void motor_b_change_Speed (int8_t speed)
 {
-    if (speed>0) // движение вперёд
+    if (speed>0) // move forward
     {
         CCPR2L=speed;
         PORTBbits.RB1=0;
         PORTBbits.RB2=1;
     }
-    else if (speed<0) // движение назад
+    else if (speed<0) // move backward
     {
         CCPR2L =-speed;
         PORTBbits.RB1=1;
         PORTBbits.RB2=0;
     }
-    else //остановка
+    else //stop 
     {
         CCPR2L = 0;
         PORTBbits.RB1=0;
@@ -197,123 +181,19 @@ void motor_b_change_Speed (signed char speed)
     }
 }
 
-
-void timer_init()
-{
-//    TRISBbits.RB3=0;//настройка RB3 на выход
-    TRISCbits.RC0 = 0;
-    T0CONbits.T08BIT=1;//настройка таймера №0 на 16-битный режим работы
-    T0CONbits.PSA=1;//разрешение использовать предделитель
-    T0CONbits.T0PS=0b111;//предделитель равен 256
-    T0CONbits.T0CS=0;//выбор внутреннего источника тактовых импульсов
-    TMR0H=0;//запись старшего байта начального значения
-    TMR0L=200;//запись младшего байта начального значения
-    T0CONbits.TMR0ON=1;
-    RCONbits.IPEN=1; // разрешение двухуровневых прерываний
-    INTCON2bits.TMR0IP=0;//присвоение прерыванию низкого приоритета
-    INTCONbits.TMR0IF=0;//обнуление флага прерывания по переполнению таймера 0
-    INTCONbits.GIEH=1; //разрешение высокоуровневых прерываний
-    INTCONbits.GIEL=1; //разрешение низкоуровневых прерываний
-    INTCONbits.TMR0IE=1;//разрешение прерывания по переполнению таймера 0
-
-}
-
-//void interrupt low_priority  LIisr (void)
-//{
-//
-//    if(make_noise == 1)
-//    {
-//        LATCbits.LATC0 = !LATCbits.LATC0;
-//    }
-//    INTCONbits.TMR0IF=0;
-//}
-
-void A4_is_on()
-{ 
-TRISAbits.TRISA4 = 1;
-}
-
-void B0_is_on()
-{ 
-TRISBbits.TRISB0 = 1;
-}
-
-//void main(void) 
-//{
-//    TRISC0 = 0;
-//    lcd_init();
-//    Adc_init();
-//    motor_init();
-//    timer_init();
-//    
-//            
-//    int dist_sensor = 0; 
-//       
-//    while(1)
-//    { 
-//        lcd_clear();       
-//        dist_sensor = read_Adc(3);
-//        
-//        if(dist_sensor < 300)
-//        {
-//            flag = 1;
-//            motor_a_change_Speed(120);
-//            motor_b_change_Speed(120);
-//        }   
-//        else
-//        {
-//            flag = 0;
-//        }
-//        
-//        
-//        inttolcd(0x85, dist_sensor);
-//        lcd_puts(0xC0, "Ok");
-//        __delay_ms(50);
-//    }
-//    
-//    
-//}
-
-void LED_on(int turn_on)
-{
-    TRISBbits.RB3 = 0;
-    if(turn_on == 1)
-    {
-        LATBbits.LATB3 = 1;
-    }
-    else
-    {
-        LATBbits.LATB3 = 0;
-    }
-}
-
-int read_sensor_1()
-{
-    sensor_1 = read_Adc(0);
-    return sensor_1;
-}
-
-int read_sensor_2()
-{
-    sensor_2 = read_Adc(1);
-    return sensor_2;
-}
-
-int read_sensor_3()
-{
-    sensor_3 = read_Adc(2);
-    return sensor_3;
-}
-
+int8_t isInitialized = 0;
 
 void init_all_units( void )
 {
+    if( isInitialized )
+        return;
+    
     lcd_init();
     Adc_init();
     motor_init();
-    timer_init();
+    
+    isInitialized = 1; 
 }
-
 
 void testLEDRoutine( void )
 {
@@ -546,5 +426,48 @@ void testPotentiometrRoutine( void )
         
         __delay_ms( 100 );
         lcd_clear( );
+    }
+}
+
+void testMotors( void )
+{
+    TRISBbits.RB0 = 1; 
+    uint8_t but_count = 0;
+    
+    while( 1 )
+    {
+        if( !PORTBbits.RB0 )
+        {
+            __delay_ms( 70 );
+            if( !PORTBbits.RB0 )
+            {
+                but_count += 1;
+            }
+        }
+    
+        switch( but_count )
+        {
+            case 1:
+                motor_a_change_Speed( 120 );
+                motor_b_change_Speed( 120 ); 
+                break;
+
+            case 2:
+                motor_a_change_Speed( -120 );
+                motor_b_change_Speed( -120 ); 
+                break;
+
+            case 3:
+                motor_a_change_Speed( 0 );
+                motor_b_change_Speed( 0 ); 
+                break;
+                
+            default: ;
+        }
+        but_count = (but_count >= 4) ? 0 : but_count; 
+        
+        lcd_puts( 0x80, "Button pressed");
+        inttolcd(0xC0, but_count);
+        
     }
 }

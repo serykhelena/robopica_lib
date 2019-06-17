@@ -1,45 +1,9 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"6491 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f4525.h
-[s S262 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S262 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"6501
-[s S263 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S263 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"6511
-[s S264 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S264 . . GIEL GIEH ]
-"6490
-[u S261 `S262 1 `S263 1 `S264 1 ]
-[n S261 . . . . ]
-"6517
-[v _INTCONbits `VS261 ~T0 @X0 0 e@4082 ]
-"996
-[s S41 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S41 . LATB0 LATB1 LATB2 LATB3 LATB4 LATB5 LATB6 LATB7 ]
-"1006
-[s S42 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S42 . LB0 LB1 LB2 LB3 LB4 LB5 LB6 LB7 ]
-"995
-[u S40 `S41 1 `S42 1 ]
-[n S40 . . . ]
-"1017
-[v _LATBbits `VS40 ~T0 @X0 0 e@3978 ]
 [p mainexit ]
-"48 lib.h
+"77 lib.h
 [v _init_all_units `(v ~T0 @X0 0 ef ]
-"30
-[v _low_interrupt_init `(v ~T0 @X0 0 ef ]
-"1611 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f4525.h
-[s S59 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S59 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
-"1621
-[s S60 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S60 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"1610
-[u S58 `S59 1 `S60 1 ]
-[n S58 . . . ]
-"1632
-[v _TRISBbits `VS58 ~T0 @X0 0 e@3987 ]
+"196
+[v _testMotors `(v ~T0 @X0 0 ef ]
 "6 pragma.h
 [p x OSC=HS ]
 "7
@@ -2952,96 +2916,60 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;math.h: 53: extern double fmod(double, double);
 [; ;math.h: 54: extern double trunc(double);
 [; ;math.h: 55: extern double round(double);
-[; ;lib.h: 14: void lcd_clk(void);
-[; ;lib.h: 15: void lcd_command(unsigned char outbyte);
-[; ;lib.h: 16: void lcd_putc(char outbyte);
-[; ;lib.h: 17: void lcd_puts(unsigned char line,const char *p);
-[; ;lib.h: 18: void inttolcd(unsigned char posi, long value);
-[; ;lib.h: 19: void lcd_init();
-[; ;lib.h: 20: void Adc_init();
-[; ;lib.h: 21: int read_Adc(int channel);
-[; ;lib.h: 28: void high_interrupt_init( void );
-[; ;lib.h: 30: void low_interrupt_init( );
-[; ;lib.h: 32: void motor_init();
-[; ;lib.h: 33: void motor_a_change_Speed (signed char speed);
-[; ;lib.h: 34: void motor_b_change_Speed (signed char speed);
-[; ;lib.h: 39: void LED_on(int turn_on);
-[; ;lib.h: 40: int read_sensor_1();
-[; ;lib.h: 41: int read_sensor_2();
-[; ;lib.h: 42: int read_sensor_3();
-[; ;lib.h: 48: void init_all_units( void );
-[; ;lib.h: 61: void testLEDRoutine( void );
-[; ;lib.h: 67: void testButtonRoutine( void );
-[; ;lib.h: 75: void testNoiseRoutine( void );
-[; ;lib.h: 86: void testAllSensorsRoutine( void );
-[; ;lib.h: 97: void testRefSensors( void );
-[; ;lib.h: 108: void testDistanceSensorRoutine( void );
-[; ;lib.h: 119: void testLightSensorRoutine( void );
-[; ;lib.h: 130: void testNoiseSensorRoutine( void );
-[; ;lib.h: 141: void testTemperatureSensorRoutine( void );
-[; ;lib.h: 152: void testPotentiometrRoutine( void );
-[v $root$_LIisr `(v ~T0 @X0 0 e ]
-[v F3247 `(v ~T0 @X0 1 tf ]
-"4 main.c
-[v _LIisr `ILF3247 ~T0 @X0 1 e ]
-"5
-{
-[; ;main.c: 4: void interrupt low_priority LIisr (void)
-[; ;main.c: 5: {
-[e :U _LIisr ]
-[f ]
-[; ;main.c: 6: if (INTCONbits.TMR0IF)
-"6
-[e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 275  ]
-[; ;main.c: 7: {
-"7
-{
-[; ;main.c: 8: INTCONbits.TMR0IF=0;
-"8
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 10: LATBbits.LATB3=!LATBbits.LATB3;
-"10
-[e = . . _LATBbits 0 3 -> -> ! != -> . . _LATBbits 0 3 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-"11
-}
-[e :U 275 ]
-[; ;main.c: 11: }
-[; ;main.c: 12: }
-"12
-[e :UE 274 ]
-}
+[; ;lib.h: 12: void lcd_clk(void);
+[; ;lib.h: 13: void lcd_command(unsigned char outbyte);
+[; ;lib.h: 14: void lcd_putc(char outbyte);
+[; ;lib.h: 19: void lcd_puts(uint8_t line,const uint8_t *p);
+[; ;lib.h: 24: void inttolcd(uint8_t posi, int32_t value);
+[; ;lib.h: 29: void lcd_init();
+[; ;lib.h: 34: void Adc_init();
+[; ;lib.h: 39: int16_t read_Adc(int16_t channel);
+[; ;lib.h: 45: void high_interrupt_init( void );
+[; ;lib.h: 51: void low_interrupt_init( );
+[; ;lib.h: 56: void motor_init();
+[; ;lib.h: 64: void motor_a_change_Speed (int8_t speed);
+[; ;lib.h: 72: void motor_b_change_Speed (int8_t speed);
+[; ;lib.h: 77: void init_all_units( void );
+[; ;lib.h: 90: void testLEDRoutine( void );
+[; ;lib.h: 96: void testButtonRoutine( void );
+[; ;lib.h: 104: void testNoiseRoutine( void );
+[; ;lib.h: 115: void testAllSensorsRoutine( void );
+[; ;lib.h: 126: void testRefSensors( void );
+[; ;lib.h: 137: void testDistanceSensorRoutine( void );
+[; ;lib.h: 148: void testLightSensorRoutine( void );
+[; ;lib.h: 159: void testNoiseSensorRoutine( void );
+[; ;lib.h: 170: void testTemperatureSensorRoutine( void );
+[; ;lib.h: 181: void testPotentiometrRoutine( void );
+[; ;lib.h: 196: void testMotors( void );
 [v $root$_main `(v ~T0 @X0 0 e ]
-"15
+"10 main.c
 [v _main `(v ~T0 @X0 1 ef ]
-"16
+"11
 {
-[; ;main.c: 15: void main(void)
-[; ;main.c: 16: {
+[; ;main.c: 10: void main(void)
+[; ;main.c: 11: {
 [e :U _main ]
 [f ]
-[; ;main.c: 17: init_all_units( );
-"17
+[; ;main.c: 12: init_all_units( );
+"12
 [e ( _init_all_units ..  ]
-[; ;main.c: 20: low_interrupt_init( );
-"20
-[e ( _low_interrupt_init ..  ]
-[; ;main.c: 22: TRISBbits.RB3=0;
-"22
-[e = . . _TRISBbits 1 3 -> -> 0 `i `uc ]
-[; ;main.c: 23: while(1)
-"23
-[e :U 278 ]
-[; ;main.c: 24: {
-"24
+[; ;main.c: 14: testMotors( );
+"14
+[e ( _testMotors ..  ]
+[; ;main.c: 16: while(1)
+"16
+[e :U 276 ]
+[; ;main.c: 17: {
+"17
 {
-"26
+"20
 }
+[e :U 275 ]
+"16
+[e $U 276  ]
 [e :U 277 ]
-"23
-[e $U 278  ]
-[e :U 279 ]
-[; ;main.c: 26: }
-[; ;main.c: 27: }
-"27
-[e :UE 276 ]
+[; ;main.c: 20: }
+[; ;main.c: 21: }
+"21
+[e :UE 274 ]
 }

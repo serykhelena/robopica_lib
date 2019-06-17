@@ -4050,88 +4050,87 @@ extern double fmod(double, double);
 extern double trunc(double);
 extern double round(double);
 
-# 14 "lib.h"
+# 12 "lib.h"
 void lcd_clk(void);
 void lcd_command(unsigned char outbyte);
 void lcd_putc(char outbyte);
-void lcd_puts(unsigned char line,const char *p);
-void inttolcd(unsigned char posi, long value);
-void lcd_init();
-void Adc_init();
-int read_Adc(int channel);
 
-# 28
+# 19
+void lcd_puts(uint8_t line,const uint8_t *p);
+
+# 24
+void inttolcd(uint8_t posi, int32_t value);
+
+# 29
+void lcd_init();
+
+# 34
+void Adc_init();
+
+# 39
+int16_t read_Adc(int16_t channel);
+
+# 45
 void high_interrupt_init( void );
 
+# 51
 void low_interrupt_init( );
 
+# 56
 void motor_init();
-void motor_a_change_Speed (signed char speed);
-void motor_b_change_Speed (signed char speed);
 
+# 64
+void motor_a_change_Speed (int8_t speed);
 
+# 72
+void motor_b_change_Speed (int8_t speed);
 
-
-void LED_on(int turn_on);
-int read_sensor_1();
-int read_sensor_2();
-int read_sensor_3();
-
-# 48
+# 77
 void init_all_units( void );
 
-# 61
+# 90
 void testLEDRoutine( void );
 
-# 67
+# 96
 void testButtonRoutine( void );
 
-# 75
+# 104
 void testNoiseRoutine( void );
 
-# 86
+# 115
 void testAllSensorsRoutine( void );
 
-# 97
+# 126
 void testRefSensors( void );
 
-# 108
+# 137
 void testDistanceSensorRoutine( void );
 
-# 119
+# 148
 void testLightSensorRoutine( void );
 
-# 130
+# 159
 void testNoiseSensorRoutine( void );
 
-# 141
+# 170
 void testTemperatureSensorRoutine( void );
 
-# 152
+# 181
 void testPotentiometrRoutine( void );
 
-# 4 "main.c"
-void interrupt low_priority LIisr (void)
-{
-if (INTCONbits.TMR0IF)
-{
-INTCONbits.TMR0IF=0;
+# 196
+void testMotors( void );
 
-LATBbits.LATB3=!LATBbits.LATB3;
-}
-}
-
-
+# 10 "main.c"
 void main(void)
 {
 init_all_units( );
 
+testMotors( );
 
-low_interrupt_init( );
-
-TRISBbits.RB3=0;
 while(1)
 {
+
 
 }
 }
