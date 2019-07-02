@@ -10,10 +10,9 @@
 void main(void) 
 {
     init_all_units( );
-    
+
     while(1)
     {
-        
         
     } 
 }

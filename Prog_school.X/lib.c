@@ -471,3 +471,71 @@ void testMotors( void )
         
     }
 }
+
+void task_1_5(void) 
+{
+    uint8_t a=0, count=0;
+    init_all_units( );
+    
+    TRISB3=0; /* Setting RB3 as a digital output */
+    TRISA4=1; /* Setting RA4 as a digital input */
+    TRISC0=0;
+
+    while(1)
+    {
+        if ( !PORTAbits.RA4 )
+        {
+            __delay_ms(110);
+            if( !PORTAbits.RA4 ) count += 1;
+        }
+        
+        if ( count > 3 ) count = 0;
+        
+        switch (count)
+        {
+            case 0:     // turn off  
+                LATCbits.LATC0 = 0;
+                LATBbits.LATB3 = 0;
+                break;
+                
+            case 1:     // LED blinking
+                LATBbits.LATB3 =! PORTBbits.RB3;
+                __delay_ms(100);
+                break;
+
+            case 2:     // LED && Noise
+                LATBbits.LATB3 =! PORTBbits.RB3; 
+                for(int i=0;i<12000;i++)
+                {
+                    if( !PORTAbits.RA4 ) break; 
+                    LATCbits.LATC0 =! PORTCbits.RC0;
+                    __delay_us(40);
+                }
+                break;
+        
+            default: ;
+        }        
+        a = !a;
+    } 
+}
+
+void task_2_3(void)
+{
+    init_all_units(); 
+    uint16_t a = 0, adc_value = 0, potentiometer = 0;
+    float b = 0, d = 0;
+
+    while(1)  
+    {
+        potentiometer = read_Adc(7);
+        d = potentiometer / 147;
+        b = round( d );
+        if( abs( potentiometer - b * 147 ) > 6 ) a = floor(d);  //dead zone
+        inttolcd( 0x86, a );
+        adc_value = read_Adc( a );
+        inttolcd( 0xC0, adc_value );
+        __delay_ms(200);
+        lcd_puts( 0x86, " " );
+        lcd_puts( 0xC0, "                ");
+    }
+}

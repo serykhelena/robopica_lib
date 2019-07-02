@@ -3,16 +3,30 @@
 [d edition pro ]
 [d chip 18F4525 ]
 [d frameptr 4065 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+"42 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\altoft.c
+[v ___altoft __altoft `(f  1 e 3 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
+"13 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\floor.c
+[v _floor floor `(d  1 e 3 0 ]
+"254 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\frexp.c
+[v _frexp frexp `(d  1 e 3 0 ]
 "86 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftneg.c
+[v ___ftneg __ftneg `(f  1 e 3 0 ]
 "20 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\itoa.c
 [v _itoa itoa `(*.39uc  1 e 2 0 ]
 "17
@@ -21,6 +35,10 @@
 [v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\lwmod.c
 [v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\round.c
+[v _round round `(d  1 e 3 0 ]
 "10 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 3 0 ]
 "245
@@ -29,6 +47,8 @@
 [v ___fldiv __fldiv `(d  1 e 3 0 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 3 0 ]
+"13 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\trunc.c
+[v _trunc trunc `(d  1 e 3 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "3 D:\Repository\robopica_lib\Prog_school.X\lib.c
@@ -55,8 +75,6 @@
 [v _motor_b_change_Speed motor_b_change_Speed `(v  1 e 1 0 ]
 "186
 [v _init_all_units init_all_units `(v  1 e 1 0 ]
-"432
-[v _testMotors testMotors `(v  1 e 1 0 ]
 "10 D:\Repository\robopica_lib\Prog_school.X\main.c
 [v _main main `(v  1 e 1 0 ]
 [s S761 . 1 `uc 1 RA0 1 0 :1:0 
@@ -514,115 +532,18 @@
 ]
 [u S353 . 1 `S331 1 . 1 0 `S340 1 . 1 0 `S349 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES353  1 e 1 @4082 ]
+"7854
+[v _TRISA4 TRISA4 `VEb  1 e 0 @31892 ]
+"7868
+[v _TRISB3 TRISB3 `VEb  1 e 0 @31899 ]
+"7878
+[v _TRISC0 TRISC0 `VEb  1 e 0 @31904 ]
 "184 D:\Repository\robopica_lib\Prog_school.X\lib.c
 [v _isInitialized isInitialized `c  1 e 1 0 ]
 "10 D:\Repository\robopica_lib\Prog_school.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"21
-} 0
-"432 D:\Repository\robopica_lib\Prog_school.X\lib.c
-[v _testMotors testMotors `(v  1 e 1 0 ]
-{
-"435
-[v testMotors@but_count but_count `uc  1 a 1 48 ]
-"473
-} 0
-"162
-[v _motor_b_change_Speed motor_b_change_Speed `(v  1 e 1 0 ]
-{
-[v motor_b_change_Speed@speed speed `c  1 a 1 wreg ]
-[v motor_b_change_Speed@speed speed `c  1 a 1 wreg ]
-"164
-[v motor_b_change_Speed@speed speed `c  1 a 1 0 ]
-"182
-} 0
-"140
-[v _motor_a_change_Speed motor_a_change_Speed `(v  1 e 1 0 ]
-{
-[v motor_a_change_Speed@speed speed `c  1 a 1 wreg ]
-[v motor_a_change_Speed@speed speed `c  1 a 1 wreg ]
-"142
-[v motor_a_change_Speed@speed speed `c  1 a 1 0 ]
-"160
-} 0
-"42
-[v _inttolcd inttolcd `(v  1 e 1 0 ]
-{
-[v inttolcd@posi posi `uc  1 a 1 wreg ]
-"44
-[v inttolcd@buff buff `[16]uc  1 a 16 28 ]
-"42
-[v inttolcd@posi posi `uc  1 a 1 wreg ]
-[v inttolcd@value value `l  1 p 4 24 ]
-"45
-[v inttolcd@posi posi `uc  1 a 1 44 ]
-"47
-} 0
-"31
-[v _lcd_puts lcd_puts `(v  1 e 1 0 ]
-{
-[v lcd_puts@line line `uc  1 a 1 wreg ]
-[v lcd_puts@line line `uc  1 a 1 wreg ]
-[v lcd_puts@p p `*.35Cuc  1 p 2 2 ]
-"33
-[v lcd_puts@line line `uc  1 a 1 4 ]
-"40
-} 0
-"21
-[v _lcd_putc lcd_putc `(v  1 e 1 0 ]
-{
-[v lcd_putc@outbyte outbyte `uc  1 a 1 wreg ]
-[v lcd_putc@outbyte outbyte `uc  1 a 1 wreg ]
-"23
-[v lcd_putc@outbyte outbyte `uc  1 a 1 1 ]
-"29
-} 0
-"4 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\itoa.c
-[v _itoa itoa `(*.39uc  1 e 2 0 ]
-{
-"6
-[v itoa@cp cp `*.39uc  1 a 2 22 ]
-"4
-[v itoa@buf buf `*.39uc  1 p 2 16 ]
-[v itoa@val val `i  1 p 2 18 ]
-[v itoa@base base `i  1 p 2 20 ]
-"14
-} 0
-"17
-[v _utoa utoa `(*.39uc  1 e 2 0 ]
-{
-"19
-[v utoa@v v `ui  1 a 2 13 ]
-"20
-[v utoa@c c `uc  1 a 1 15 ]
-"17
-[v utoa@buf buf `*.39uc  1 p 2 7 ]
-[v utoa@val val `ui  1 p 2 9 ]
-[v utoa@base base `i  1 p 2 11 ]
-"37
-} 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\lwmod.c
-[v ___lwmod __lwmod `(ui  1 e 2 0 ]
-{
-"11
-[v ___lwmod@counter counter `uc  1 a 1 4 ]
-"8
-[v ___lwmod@dividend dividend `ui  1 p 2 0 ]
-[v ___lwmod@divisor divisor `ui  1 p 2 2 ]
-"26
-} 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.45\sources\common\lwdiv.c
-[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
-{
-"11
-[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
-"12
-[v ___lwdiv@counter counter `uc  1 a 1 6 ]
-"8
-[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
-"31
+"18
 } 0
 "186 D:\Repository\robopica_lib\Prog_school.X\lib.c
 [v _init_all_units init_all_units `(v  1 e 1 0 ]

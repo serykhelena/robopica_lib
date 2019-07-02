@@ -4121,16 +4121,19 @@ void testPotentiometrRoutine( void );
 # 196
 void testMotors( void );
 
+# 207
+void task_1_5(void) ;
+
+# 214
+void task_2_3(void);
+
 # 10 "main.c"
 void main(void)
 {
 init_all_units( );
 
-testMotors( );
-
 while(1)
 {
-
 
 }
 }

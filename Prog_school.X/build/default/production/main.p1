@@ -2,8 +2,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "77 lib.h
 [v _init_all_units `(v ~T0 @X0 0 ef ]
-"196
-[v _testMotors `(v ~T0 @X0 0 ef ]
 "6 pragma.h
 [p x OSC=HS ]
 "7
@@ -2941,6 +2939,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lib.h: 170: void testTemperatureSensorRoutine( void );
 [; ;lib.h: 181: void testPotentiometrRoutine( void );
 [; ;lib.h: 196: void testMotors( void );
+[; ;lib.h: 207: void task_1_5(void) ;
+[; ;lib.h: 214: void task_2_3(void);
 [v $root$_main `(v ~T0 @X0 0 e ]
 "10 main.c
 [v _main `(v ~T0 @X0 1 ef ]
@@ -2953,23 +2953,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 12: init_all_units( );
 "12
 [e ( _init_all_units ..  ]
-[; ;main.c: 14: testMotors( );
+[; ;main.c: 14: while(1)
 "14
-[e ( _testMotors ..  ]
-[; ;main.c: 16: while(1)
-"16
 [e :U 276 ]
-[; ;main.c: 17: {
-"17
+[; ;main.c: 15: {
+"15
 {
-"20
+"17
 }
 [e :U 275 ]
-"16
+"14
 [e $U 276  ]
 [e :U 277 ]
-[; ;main.c: 20: }
-[; ;main.c: 21: }
-"21
+[; ;main.c: 17: }
+[; ;main.c: 18: }
+"18
 [e :UE 274 ]
 }

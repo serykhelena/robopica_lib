@@ -333,6 +333,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S15 . . . . . . ]
 "403
 [v _PORTCbits `VS15 ~T0 @X0 0 e@3970 ]
+"7868
+[v _TRISB3 `Vb ~T0 @X0 0 e@31899 ]
+"7854
+[v _TRISA4 `Vb ~T0 @X0 0 e@31892 ]
+"7878
+[v _TRISC0 `Vb ~T0 @X0 0 e@31904 ]
+"55 C:\Program Files (x86)\Microchip\xc8\v1.45\include\math.h
+[v _round `(d ~T0 @X0 0 ef1`d ]
+"92 C:\Program Files (x86)\Microchip\xc8\v1.45\include\stdlib.h
+[v _abs `(i ~T0 @X0 0 ef1`i ]
+"31 C:\Program Files (x86)\Microchip\xc8\v1.45\include\math.h
+[v _floor `(d ~T0 @X0 0 ef1`d ]
 "6 pragma.h
 [p x OSC=HS ]
 "7
@@ -3270,6 +3282,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;lib.h: 170: void testTemperatureSensorRoutine( void );
 [; ;lib.h: 181: void testPotentiometrRoutine( void );
 [; ;lib.h: 196: void testMotors( void );
+[; ;lib.h: 207: void task_1_5(void) ;
+[; ;lib.h: 214: void task_2_3(void);
 "3 lib.c
 [v _lcd_clk `(v ~T0 @X0 1 ef ]
 "4
@@ -4679,6 +4693,234 @@ Version 3.2 HI-TECH Software Intermediate Code
 "473
 [e :UE 357 ]
 }
+"475
+[v _task_1_5 `(v ~T0 @X0 1 ef ]
+"476
+{
+[; ;lib.c: 475: void task_1_5(void)
+[; ;lib.c: 476: {
+[e :U _task_1_5 ]
+[f ]
+"477
+[v _a `uc ~T0 @X0 1 a ]
+[; ;lib.c: 477: uint8_t a=0, count=0;
+[e = _a -> -> 0 `i `uc ]
+[v _count `uc ~T0 @X0 1 a ]
+[e = _count -> -> 0 `i `uc ]
+[; ;lib.c: 478: init_all_units( );
+"478
+[e ( _init_all_units ..  ]
+[; ;lib.c: 480: TRISB3=0;
+"480
+[e = _TRISB3 -> -> 0 `i `b ]
+[; ;lib.c: 481: TRISA4=1;
+"481
+[e = _TRISA4 -> -> 1 `i `b ]
+[; ;lib.c: 482: TRISC0=0;
+"482
+[e = _TRISC0 -> -> 0 `i `b ]
+[; ;lib.c: 484: while(1)
+"484
+[e :U 371 ]
+[; ;lib.c: 485: {
+"485
+{
+[; ;lib.c: 486: if ( !PORTAbits.RA4 )
+"486
+[e $ ! ! != -> . . _PORTAbits 0 4 `i -> -> -> 0 `i `Vuc `i 373  ]
+[; ;lib.c: 487: {
+"487
+{
+[; ;lib.c: 488: _delay((unsigned long)((110)*(10000000/4000.0)));
+"488
+[e ( __delay (1 -> * -> -> 110 `i `d / -> -> 10000000 `l `d .4000.0 `ul ]
+[; ;lib.c: 489: if( !PORTAbits.RA4 ) count += 1;
+"489
+[e $ ! ! != -> . . _PORTAbits 0 4 `i -> -> -> 0 `i `Vuc `i 374  ]
+[e =+ _count -> -> 1 `i `uc ]
+[e :U 374 ]
+"490
+}
+[e :U 373 ]
+[; ;lib.c: 490: }
+[; ;lib.c: 492: if ( count > 3 ) count = 0;
+"492
+[e $ ! > -> _count `i -> 3 `i 375  ]
+[e = _count -> -> 0 `i `uc ]
+[e :U 375 ]
+[; ;lib.c: 494: switch (count)
+"494
+[e $U 377  ]
+[; ;lib.c: 495: {
+"495
+{
+[; ;lib.c: 496: case 0:
+"496
+[e :U 378 ]
+[; ;lib.c: 497: LATCbits.LATC0 = 0;
+"497
+[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
+[; ;lib.c: 498: LATBbits.LATB3 = 0;
+"498
+[e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
+[; ;lib.c: 499: break;
+"499
+[e $U 376  ]
+[; ;lib.c: 501: case 1:
+"501
+[e :U 379 ]
+[; ;lib.c: 502: LATBbits.LATB3 =! PORTBbits.RB3;
+"502
+[e = . . _LATBbits 0 3 -> -> ! != -> . . _PORTBbits 0 3 `i -> -> -> 0 `i `Vuc `i `i `uc ]
+[; ;lib.c: 503: _delay((unsigned long)((100)*(10000000/4000.0)));
+"503
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 10000000 `l `d .4000.0 `ul ]
+[; ;lib.c: 504: break;
+"504
+[e $U 376  ]
+[; ;lib.c: 506: case 2:
+"506
+[e :U 380 ]
+[; ;lib.c: 507: LATBbits.LATB3 =! PORTBbits.RB3;
+"507
+[e = . . _LATBbits 0 3 -> -> ! != -> . . _PORTBbits 0 3 `i -> -> -> 0 `i `Vuc `i `i `uc ]
+[; ;lib.c: 508: for(int i=0;i<12000;i++)
+"508
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 12000 `i 381  ]
+[e $U 382  ]
+"509
+[e :U 381 ]
+[; ;lib.c: 509: {
+{
+[; ;lib.c: 510: if( !PORTAbits.RA4 ) break;
+"510
+[e $ ! ! != -> . . _PORTAbits 0 4 `i -> -> -> 0 `i `Vuc `i 384  ]
+[e $U 382  ]
+[e :U 384 ]
+[; ;lib.c: 511: LATCbits.LATC0 =! PORTCbits.RC0;
+"511
+[e = . . _LATCbits 0 0 -> -> ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `uc ]
+[; ;lib.c: 512: _delay((unsigned long)((40)*(10000000/4000000.0)));
+"512
+[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 10000000 `l `d .4000000.0 `ul ]
+"513
+}
+"508
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 12000 `i 381  ]
+[e :U 382 ]
+"513
+}
+[; ;lib.c: 513: }
+[; ;lib.c: 514: break;
+"514
+[e $U 376  ]
+[; ;lib.c: 516: default: ;
+"516
+[e :U 385 ]
+"517
+}
+[; ;lib.c: 517: }
+[e $U 376  ]
+"494
+[e :U 377 ]
+[e [\ _count , $ -> -> 0 `i `uc 378
+ , $ -> -> 1 `i `uc 379
+ , $ -> -> 2 `i `uc 380
+ 385 ]
+"517
+[e :U 376 ]
+[; ;lib.c: 518: a = !a;
+"518
+[e = _a -> -> ! != -> _a `i -> -> -> 0 `i `uc `i `i `uc ]
+"519
+}
+[e :U 370 ]
+"484
+[e $U 371  ]
+[e :U 372 ]
+[; ;lib.c: 519: }
+[; ;lib.c: 520: }
+"520
+[e :UE 369 ]
+}
+"522
+[v _task_2_3 `(v ~T0 @X0 1 ef ]
+"523
+{
+[; ;lib.c: 522: void task_2_3(void)
+[; ;lib.c: 523: {
+[e :U _task_2_3 ]
+[f ]
+[; ;lib.c: 524: init_all_units();
+"524
+[e ( _init_all_units ..  ]
+"525
+[v _a `ui ~T0 @X0 1 a ]
+[; ;lib.c: 525: uint16_t a = 0, adc_value = 0, potentiometer = 0;
+[e = _a -> -> 0 `i `ui ]
+[v _adc_value `ui ~T0 @X0 1 a ]
+[e = _adc_value -> -> 0 `i `ui ]
+[v _potentiometer `ui ~T0 @X0 1 a ]
+[e = _potentiometer -> -> 0 `i `ui ]
+"526
+[v _b `f ~T0 @X0 1 a ]
+[; ;lib.c: 526: float b = 0, d = 0;
+[e = _b -> -> 0 `i `f ]
+[v _d `f ~T0 @X0 1 a ]
+[e = _d -> -> 0 `i `f ]
+[; ;lib.c: 528: while(1)
+"528
+[e :U 388 ]
+[; ;lib.c: 529: {
+"529
+{
+[; ;lib.c: 530: potentiometer = read_Adc(7);
+"530
+[e = _potentiometer -> ( _read_Adc (1 -> 7 `i `ui ]
+[; ;lib.c: 531: d = potentiometer / 147;
+"531
+[e = _d -> / _potentiometer -> -> 147 `i `ui `f ]
+[; ;lib.c: 532: b = round( d );
+"532
+[e = _b -> ( _round (1 -> _d `d `f ]
+[; ;lib.c: 533: if( abs( potentiometer - b * 147 ) > 6 ) a = floor(d);
+"533
+[e $ ! > ( _abs (1 -> - -> _potentiometer `f * _b -> -> 147 `i `f `i -> 6 `i 390  ]
+[e = _a -> ( _floor (1 -> _d `d `ui ]
+[e :U 390 ]
+[; ;lib.c: 534: inttolcd( 0x86, a );
+"534
+[e ( _inttolcd (2 , -> -> 134 `i `uc -> _a `l ]
+[; ;lib.c: 535: adc_value = read_Adc( a );
+"535
+[e = _adc_value -> ( _read_Adc (1 -> _a `i `ui ]
+[; ;lib.c: 536: inttolcd( 0xC0, adc_value );
+"536
+[e ( _inttolcd (2 , -> -> 192 `i `uc -> _adc_value `l ]
+[; ;lib.c: 537: _delay((unsigned long)((200)*(10000000/4000.0)));
+"537
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 10000000 `l `d .4000.0 `ul ]
+[; ;lib.c: 538: lcd_puts( 0x86, " " );
+"538
+[e ( _lcd_puts (2 , -> -> 134 `i `uc :s 33C ]
+[; ;lib.c: 539: lcd_puts( 0xC0, "                ");
+"539
+[e ( _lcd_puts (2 , -> -> 192 `i `uc :s 34C ]
+"540
+}
+[e :U 387 ]
+"528
+[e $U 388  ]
+[e :U 389 ]
+[; ;lib.c: 540: }
+[; ;lib.c: 541: }
+"541
+[e :UE 386 ]
+}
 [a 23C 124 0 ]
 [a 25C 124 0 ]
 [a 19C 80 111 116 101 110 116 105 111 109 101 116 114 0 ]
@@ -4711,3 +4953,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [a 26C 82 69 70 51 58 32 0 ]
 [a 24C 82 69 70 50 58 32 0 ]
 [a 22C 82 69 70 49 58 32 0 ]
+[a 34C 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 33C 32 0 ]

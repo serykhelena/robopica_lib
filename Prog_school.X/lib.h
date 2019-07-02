@@ -194,3 +194,21 @@ void testPotentiometrRoutine( void );
  *          Call OUTSIDE the while( 1 ) loop  !!!!    
  */
 void testMotors( void );
+
+/*****************************************/
+/***************** TASKS *****************/
+/*****************************************/
+
+/*
+ * @brief   Lab 1 Task 5   
+ * @note    VERY IMPORTANT!!! 
+ *          Call OUTSIDE the while( 1 ) loop  !!!!    
+ */
+void task_1_5(void) ;
+
+/*
+ * @brief   Lab 2 Task 3   
+ * @note    VERY IMPORTANT!!! 
+ *          Call OUTSIDE the while( 1 ) loop  !!!!    
+ */
+void task_2_3(void);

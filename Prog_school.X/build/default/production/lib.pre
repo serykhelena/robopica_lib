@@ -4121,6 +4121,12 @@ void testPotentiometrRoutine( void );
 # 196
 void testMotors( void );
 
+# 207
+void task_1_5(void) ;
+
+# 214
+void task_2_3(void);
+
 # 3 "lib.c"
 void lcd_clk(void)
 {
@@ -4591,5 +4597,73 @@ but_count = (but_count >= 4) ? 0 : but_count;
 lcd_puts( 0x80, "Button pressed");
 inttolcd(0xC0, but_count);
 
+}
+}
+
+void task_1_5(void)
+{
+uint8_t a=0, count=0;
+init_all_units( );
+
+TRISB3=0;
+TRISA4=1;
+TRISC0=0;
+
+while(1)
+{
+if ( !PORTAbits.RA4 )
+{
+_delay((unsigned long)((110)*(10000000/4000.0)));
+if( !PORTAbits.RA4 ) count += 1;
+}
+
+if ( count > 3 ) count = 0;
+
+switch (count)
+{
+case 0:
+LATCbits.LATC0 = 0;
+LATBbits.LATB3 = 0;
+break;
+
+case 1:
+LATBbits.LATB3 =! PORTBbits.RB3;
+_delay((unsigned long)((100)*(10000000/4000.0)));
+break;
+
+case 2:
+LATBbits.LATB3 =! PORTBbits.RB3;
+for(int i=0;i<12000;i++)
+{
+if( !PORTAbits.RA4 ) break;
+LATCbits.LATC0 =! PORTCbits.RC0;
+_delay((unsigned long)((40)*(10000000/4000000.0)));
+}
+break;
+
+default: ;
+}
+a = !a;
+}
+}
+
+void task_2_3(void)
+{
+init_all_units();
+uint16_t a = 0, adc_value = 0, potentiometer = 0;
+float b = 0, d = 0;
+
+while(1)
+{
+potentiometer = read_Adc(7);
+d = potentiometer / 147;
+b = round( d );
+if( abs( potentiometer - b * 147 ) > 6 ) a = floor(d);
+inttolcd( 0x86, a );
+adc_value = read_Adc( a );
+inttolcd( 0xC0, adc_value );
+_delay((unsigned long)((200)*(10000000/4000.0)));
+lcd_puts( 0x86, " " );
+lcd_puts( 0xC0, "                ");
 }
 }
